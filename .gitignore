@@ -1,6 +1,39 @@
+# Dependencies
 node_modules/
+
+# Astro generated files
 dist/
 .astro/
+
+# Environment variables
 .env
 .env.*
 !.env.example
+
+# Netlify local files
+.netlify/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Windows downloaded-file metadata
+*:Zone.Identifier
+
+# Test and coverage output
+coverage/
+.nyc_output/
+
+# TypeScript cache
+*.tsbuildinfo
