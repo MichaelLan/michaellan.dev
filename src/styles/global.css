@@ -185,6 +185,13 @@ select {
   padding: var(--space-md) 0 var(--space-lg);
 }
 
+@media (max-width: 1180px) {
+  .page-main.is-home {
+    display: block;
+    padding: var(--space-3xl) 0 var(--space-2xl);
+  }
+}
+
 .page-kicker {
   display: inline-flex;
   align-items: center;
@@ -364,6 +371,10 @@ select {
     padding: var(--space-xl) 0 var(--space-3xl);
   }
 
+  .page-main.is-home {
+    padding: var(--space-xl) 0 var(--space-2xl);
+  }
+
   .page-title {
     font-size: clamp(var(--text-2xl), var(--fluid-mobile-title), var(--text-page-title-max));
   }
@@ -377,5 +388,11 @@ select {
   .content-grid {
     grid-template-columns: 1fr;
     gap: var(--space-xl);
+  }
+}
+
+@media (max-width: 520px) {
+  .page-main.is-home {
+    padding: var(--space-lg) 0 var(--space-xl);
   }
 }
