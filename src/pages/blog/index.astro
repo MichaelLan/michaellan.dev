@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import BlogPostList from '@components/BlogPostList.astro';
+import TopicSidebar from '@components/TopicSidebar.astro';
+
+const topics: string[] = [];
+
+const posts = (await getCollection('blog'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title="Blog" description="Notas técnicas en español sobre datos, automatización, cloud, Linux e inteligencia artificial aplicada.">
+  <section class="container blog-page">
+    <header class="blog-header">
+      <p class="page-kicker">Blog</p>
+      <h1 class="page-title">Notas técnicas para sistemas de datos y automatización.</h1>
+      <p class="page-description">Escribo sobre patrones, decisiones y herramientas que aparecen al construir pipelines, operar infraestructura y aprender nuevas formas de trabajar con software.</p>
+    </header>
+    <div class:list={["blog-layout", { "has-topics": topics.length > 0 }]}>
+      {topics.length > 0 && <TopicSidebar topics={topics} />}
+      <BlogPostList posts={posts} />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .blog-page {
+    display: grid;
+    gap: var(--space-page-gap);
+  }
+
+  .blog-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(var(--space-xl), var(--fluid-layout-gap), var(--space-3xl));
+    align-items: start;
+  }
+
+  .blog-layout.has-topics {
+    grid-template-columns: 190px minmax(0, 1fr);
+  }
+
+  @media (max-width: 860px) {
+    .blog-layout {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+  }
+</style>

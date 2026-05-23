@@ -1,0 +1,88 @@
+---
+const year = new Date().getFullYear();
+const links = [
+  { href: 'https://github.com/michaellan', label: 'GitHub', icon: 'github' },
+  { href: 'https://www.linkedin.com/in/michaellan/', label: 'LinkedIn', icon: 'linkedin' },
+];
+---
+
+<footer class="site-footer">
+  <div class="footer-inner container">
+    <p>© {year} Michael Lan. Notas, sistemas y herramientas.</p>
+    <nav aria-label="Enlaces sociales">
+      {links.map((link) => (
+        <a href={link.href} target="_blank" rel="noreferrer" aria-label={link.label} title={link.label}>
+          {link.icon === 'github' ? (
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.18-3.37-1.18-.45-1.15-1.1-1.46-1.1-1.46-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.88 1.52 2.32 1.08 2.88.82.09-.64.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.95 0-1.1.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.03A9.58 9.58 0 0 1 12 6c.85 0 1.71.11 2.51.33 1.91-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.85-2.34 4.69-4.57 4.94.36.31.68.92.68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z" />
+            </svg>
+          ) : (
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M5.36 7.98H2.72v13.25h2.64V7.98ZM4.04 2.77a1.54 1.54 0 1 0 0 3.08 1.54 1.54 0 0 0 0-3.08Zm6.23 5.21H7.75v13.25h2.64v-7.16c0-1.8.83-3.04 2.42-3.04 1.33 0 1.97.91 1.97 2.67v7.53h2.64v-8c0-3.35-1.8-5.02-4.22-5.02-1.61 0-2.5.74-2.93 1.48V7.98Z" />
+            </svg>
+          )}
+        </a>
+      ))}
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding: var(--space-sm) 0 var(--space-lg);
+    color: var(--color-soft);
+    font-size: var(--text-sm);
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    border-top: 1px solid rgb(221 216 205 / 82%);
+    padding-top: var(--space-md);
+  }
+
+  p {
+    margin: 0;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    color: var(--color-muted);
+    text-decoration: none;
+    transition: border-color var(--transition), color var(--transition), transform var(--transition), background var(--transition);
+  }
+
+  a:hover {
+    border-color: rgb(15 118 110 / 18%);
+    background: rgb(227 241 238 / 62%);
+    color: var(--color-accent);
+    transform: translateY(-1px);
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  @media (max-width: 620px) {
+    .footer-inner {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+  }
+</style>

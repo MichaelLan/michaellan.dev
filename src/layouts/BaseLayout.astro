@@ -1,0 +1,46 @@
+---
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  mainClass?: string;
+}
+
+const {
+  title = 'Michael Lan | Data engineer & software developer',
+  description = 'Web personal técnica de Michael Lan sobre ingeniería de datos, automatización, cloud, Linux e inteligencia artificial aplicada.',
+  mainClass = '',
+} = Astro.props;
+
+const pageTitle = title.includes('Michael Lan') ? title : `${title} | Michael Lan`;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.toString();
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/icons/ml.svg" />
+    <link rel="canonical" href={canonical} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <div class="site-shell">
+      <Header />
+      <main class:list={["page-main", mainClass]}>
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>

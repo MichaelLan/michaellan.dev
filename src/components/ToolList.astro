@@ -1,0 +1,125 @@
+---
+interface ToolSection {
+  title: string;
+  description: string;
+  items: string[];
+}
+
+interface Props {
+  sections: ToolSection[];
+}
+
+const { sections } = Astro.props;
+---
+
+<div class="tool-list">
+  {sections.map((section) => (
+    <section class="tool-section">
+      <div class="tool-heading">
+        <span aria-hidden="true">/</span>
+        <h2>{section.title}</h2>
+      </div>
+      <p>{section.description}</p>
+      <ul>
+        {section.items.map((item) => <li>{item}</li>)}
+      </ul>
+    </section>
+  ))}
+</div>
+
+<style>
+  .tool-list {
+    display: grid;
+    gap: 0;
+    border-top: 1px solid rgb(221 216 205 / 86%);
+  }
+
+  .tool-section {
+    --section-accent: var(--color-accent);
+    display: grid;
+    grid-template-columns: minmax(158px, 0.4fr) minmax(0, 0.86fr) minmax(220px, 1fr);
+    gap: var(--space-lg);
+    padding: var(--space-lg) 0;
+    border-bottom: 1px solid rgb(221 216 205 / 86%);
+    transition: background var(--transition), padding-left var(--transition);
+  }
+
+  .tool-section:nth-child(2n) {
+    --section-accent: var(--color-cyan);
+  }
+
+  .tool-section:nth-child(3n) {
+    --section-accent: var(--color-yellow);
+  }
+
+  .tool-section:nth-child(5n) {
+    --section-accent: var(--color-green);
+  }
+
+  .tool-section:hover {
+    background: linear-gradient(90deg, rgb(56 189 248 / 3.5%), transparent 56%);
+    padding-left: var(--space-xs);
+  }
+
+  .tool-heading {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-xs);
+  }
+
+  .tool-heading span {
+    color: var(--section-accent);
+    font-family: var(--font-mono);
+    font-weight: 700;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: var(--text-body);
+    font-weight: 600;
+    letter-spacing: var(--tracking-tight);
+  }
+
+  p {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--text-md);
+    line-height: var(--leading-body);
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    align-content: start;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    border: 1px solid rgb(221 216 205 / 86%);
+    border-radius: 999px;
+    padding: var(--space-3xs) var(--space-xs);
+    background: rgb(255 255 255 / 54%);
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    transition: border-color var(--transition), color var(--transition), background var(--transition), transform var(--transition);
+  }
+
+  li:hover {
+    border-color: color-mix(in srgb, var(--section-accent), white 68%);
+    background: rgb(227 241 238 / 68%);
+    color: #285f5a;
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 860px) {
+    .tool-section {
+      grid-template-columns: 1fr;
+      gap: var(--space-sm);
+      padding-left: 0;
+    }
+  }
+</style>

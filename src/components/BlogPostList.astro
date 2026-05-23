@@ -1,0 +1,118 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import PostMeta from './PostMeta.astro';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { posts } = Astro.props;
+---
+
+<section class="post-list" aria-label="Entradas del blog">
+  {posts.length > 0 ? posts.map((post) => (
+      <article class="post-item" data-post data-topics={post.data.topics.join('|').toLowerCase()}>
+        <div class="post-index">{String(posts.indexOf(post) + 1).padStart(2, '0')}</div>
+        <div>
+          <h2><a href={`/blog/${post.id}/`}>{post.data.title}</a></h2>
+          <p>{post.data.description}</p>
+          <PostMeta date={post.data.pubDate} readingTime={post.data.readingTime} topics={post.data.topics} />
+        </div>
+      </article>
+    )) : (
+      <p class="empty-state">Todavía no hay entradas publicadas.</p>
+    )}
+  <p class="empty-state" data-empty hidden>No hay entradas para este topic todavía.</p>
+</section>
+
+<style>
+  .post-list {
+    border-top: 1px solid rgb(221 216 205 / 86%);
+  }
+
+  .post-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: var(--space-md);
+    padding: var(--space-lg) 0;
+    border-bottom: 1px solid rgb(221 216 205 / 86%);
+    transition: background var(--transition), transform var(--transition), padding-left var(--transition);
+  }
+
+  .post-item::before {
+    position: absolute;
+    top: 25px;
+    left: -14px;
+    width: 5px;
+    height: 5px;
+    border-radius: 999px;
+    background: var(--color-accent-bright);
+    content: "";
+    opacity: 0;
+    transition: opacity var(--transition), transform var(--transition);
+  }
+
+  .post-item:hover {
+    background: linear-gradient(90deg, rgb(15 118 110 / 3.5%), transparent 50%);
+    padding-left: var(--space-xs);
+  }
+
+  .post-item:hover::before {
+    opacity: 1;
+    transform: translateX(4px);
+  }
+
+  .post-item[hidden] {
+    display: none;
+  }
+
+  .post-index {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    font-weight: 600;
+    padding-top: var(--space-2xs);
+  }
+
+  h2 {
+    margin: 0;
+    font-size: clamp(var(--text-list-title-min), var(--fluid-list-title), var(--text-list-title-max));
+    font-weight: 600;
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  h2 a {
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+
+  h2 a:hover {
+    color: var(--color-accent);
+  }
+
+  p {
+    max-width: 700px;
+    margin: var(--space-xs) 0 0;
+    color: var(--color-muted);
+    font-size: var(--text-md);
+    line-height: var(--leading-body);
+  }
+
+  .empty-state {
+    margin-top: var(--space-lg);
+    border: 1px dashed var(--color-border-strong);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    color: var(--color-muted);
+  }
+
+  @media (max-width: 560px) {
+    .post-item {
+      grid-template-columns: 1fr;
+      gap: var(--space-xs);
+      padding-left: 0;
+    }
+  }
+</style>

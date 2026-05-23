@@ -1,0 +1,161 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import PostMeta from '@components/PostMeta.astro';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { title, description, pubDate, updatedDate, topics, readingTime } = post.data;
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="article container">
+    <a class="back-link muted-link" href="/blog/">← Volver al blog</a>
+    <header class="article-header">
+      <p class="page-kicker">Artículo técnico</p>
+      <h1>{title}</h1>
+      <p>{description}</p>
+      <PostMeta date={pubDate} updatedDate={updatedDate} readingTime={readingTime} topics={topics} />
+    </header>
+    <div class="article-body">
+      <div class="article-rail" aria-hidden="true">
+        <span>notas / sistemas / datos</span>
+      </div>
+      <div class="prose article-prose">
+        <slot />
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article {
+    width: calc(100% - calc(var(--container-gutter) * 2));
+    max-width: 760px;
+    min-width: 0;
+  }
+
+  .back-link {
+    display: inline-flex;
+    margin-bottom: var(--space-xl);
+  }
+
+  .article-header {
+    min-width: 0;
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid rgb(221 216 205 / 86%);
+  }
+
+  .article-header h1 {
+    width: 100%;
+    max-width: 720px;
+    margin: 0;
+    font-size: clamp(var(--text-article-title-min), var(--fluid-article-title), var(--text-article-title-max));
+    font-weight: 700;
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tighter);
+  }
+
+  .article-header > p:not(.page-kicker) {
+    width: 100%;
+    max-width: 680px;
+    margin: var(--space-md) 0 0;
+    color: var(--color-muted);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+  }
+
+  .article-body {
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr);
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+    min-width: 0;
+  }
+
+  .article-prose {
+    font-size: var(--text-body);
+    line-height: var(--leading-prose);
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .article-prose :global(h2) {
+    font-size: clamp(var(--text-prose-heading-min), var(--fluid-prose-heading), var(--text-prose-heading-max));
+  }
+
+  .article-rail {
+    position: sticky;
+    top: 92px;
+    height: max-content;
+    padding-top: var(--space-3xs);
+    color: rgb(122 129 125 / 34%);
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    letter-spacing: var(--tracking-wide);
+    line-height: var(--leading-prose);
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+  }
+
+  @media (max-width: 760px) {
+    .article {
+      width: calc(100% - calc(var(--container-gutter-mobile) * 2));
+      max-width: none;
+    }
+
+    .article-header h1 {
+      font-size: clamp(var(--text-xl), var(--fluid-mobile-title), var(--text-page-title-min));
+      line-height: var(--leading-tight);
+      overflow-wrap: anywhere;
+    }
+
+    .article-header > p:not(.page-kicker) {
+      font-size: var(--text-md);
+    }
+
+    .article-prose {
+      font-size: var(--text-body);
+      line-height: var(--leading-prose);
+    }
+
+    .article-body {
+      display: block;
+    }
+
+    .article-prose :global(h2) {
+      font-size: var(--text-lg);
+    }
+
+    .prose :global(p),
+    .prose :global(li),
+    .prose :global(h2),
+    .prose :global(h3) {
+      overflow-wrap: break-word;
+    }
+
+    .prose :global(pre) {
+      overflow-x: visible;
+    }
+
+    .prose :global(pre code) {
+      width: 100%;
+      min-width: 0;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .prose :global(.line) {
+      display: block;
+      white-space: pre-wrap;
+    }
+
+    .article-rail {
+      display: none;
+    }
+  }
+</style>

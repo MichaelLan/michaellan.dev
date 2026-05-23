@@ -1,0 +1,55 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ToolList from '@components/ToolList.astro';
+
+const sections = [
+  {
+    title: 'Lenguajes',
+    description: 'Lenguajes para construir automatizaciones, servicios, tooling y capas de presentación cuando hace falta.',
+    items: ['Python', 'Go'],
+  },
+  {
+    title: 'Data / cloud',
+    description: 'Herramientas para mover datos, ejecutar workflows y operar piezas de infraestructura reproducibles.',
+    items: ['AWS', 'Snowflake', 'Argo Workflows', 'SQL'],
+  },
+  // {
+  //   title: 'Sistema y terminal',
+  //   description: 'Un entorno Linux directo, scriptable y cómodo para trabajar cerca del sistema.',
+  //   items: ['Linux', 'Shell', 'Git'],
+  // },
+  // {
+  //   title: 'Editor y desarrollo',
+  //   description: 'Configuración enfocada en lectura, navegación rápida, feedback corto y herramientas que no estorben.',
+  //   items: ['Editor configurable', 'Formatters', 'Linters', 'Dev containers', 'CLIs'],
+  // },
+  {
+    title: 'Escritura y documentación',
+    description: 'Notas técnicas, documentos cercanos al código y formatos que se puedan versionar sin fricción.',
+    items: ['Markdown', 'Typst', 'Diagramas', 'README'],
+  },
+  {
+    title: 'IA aplicada',
+    description: 'Uso modelos y agentes como apoyo para explorar, revisar y automatizar tareas técnicas con criterio humano.',
+    items: ['AI Agents', 'LLMs', 'RAG', 'Prompts técnicos'],
+  },
+];
+---
+
+<BaseLayout title="Uses" description="Herramientas, lenguajes y entorno de trabajo de Michael Lan.">
+  <section class="container uses-page">
+    <header>
+      <p class="page-kicker">Uses / Setup</p>
+      <h1 class="page-title">Herramientas que uso para construir, operar y escribir.</h1>
+      <p class="page-description">Una lista viva de lenguajes, servicios y herramientas que forman parte de mi entorno de trabajo. No es una vitrina de stacks; es una referencia práctica.</p>
+    </header>
+    <ToolList sections={sections} />
+  </section>
+</BaseLayout>
+
+<style>
+  .uses-page {
+    display: grid;
+    gap: var(--space-page-gap);
+  }
+</style>

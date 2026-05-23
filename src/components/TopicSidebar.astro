@@ -1,0 +1,113 @@
+---
+interface Props {
+  topics: string[];
+}
+
+const { topics } = Astro.props;
+---
+
+<aside class="topic-sidebar" aria-label="Filtrar por topic">
+  <p>Topics</p>
+  <div class="topic-controls">
+    <button type="button" class="active" data-topic="all">Todos</button>
+    {topics.map((topic) => (
+      <button type="button" data-topic={topic.toLowerCase()}>{topic}</button>
+    ))}
+  </div>
+</aside>
+
+<script>
+  const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-topic]'));
+  const posts = Array.from(document.querySelectorAll<HTMLElement>('[data-post]'));
+  const emptyState = document.querySelector<HTMLElement>('[data-empty]');
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const topic = button.dataset.topic ?? 'all';
+      let visibleCount = 0;
+
+      buttons.forEach((item) => item.classList.toggle('active', item === button));
+
+      posts.forEach((post) => {
+        const matches = topic === 'all' || (post.dataset.topics ?? '').split('|').includes(topic);
+        post.hidden = !matches;
+        if (matches) visibleCount += 1;
+      });
+
+      if (emptyState) emptyState.hidden = visibleCount > 0;
+    });
+  });
+</script>
+
+<style>
+  .topic-sidebar {
+    position: sticky;
+    top: 28px;
+    border-left: 1px solid rgb(221 216 205 / 82%);
+    padding-left: var(--space-md);
+  }
+
+  p {
+    margin: 0 0 var(--space-xs);
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+  }
+
+  .topic-controls {
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  button {
+    width: 100%;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: var(--space-2xs) var(--space-xs);
+    background: transparent;
+    color: var(--color-muted);
+    cursor: pointer;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-align: left;
+    transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition);
+  }
+
+  button:hover,
+  button.active {
+    border-color: rgb(15 118 110 / 24%);
+    background: rgb(227 241 238 / 74%);
+    color: var(--color-accent);
+  }
+
+  button:hover {
+    transform: translateX(2px);
+  }
+
+  @media (max-width: 860px) {
+    .topic-sidebar {
+      position: static;
+      border-left: 0;
+      border-bottom: 1px solid rgb(221 216 205 / 90%);
+      padding: 0 0 var(--space-md);
+    }
+
+    .topic-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2xs);
+      overflow-x: auto;
+      padding-bottom: var(--space-3xs);
+    }
+
+    button {
+      width: auto;
+      flex: 0 0 auto;
+      border: 1px solid rgb(221 216 205 / 88%);
+      background: rgb(255 255 255 / 62%);
+    }
+  }
+</style>

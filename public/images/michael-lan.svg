@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 420" role="img" aria-labelledby="title desc">
+  <title id="title">Pipeline técnico de datos</title>
+  <desc id="desc">Ilustración técnica ligera con terminal, nodos conectados y flujo de datos.</desc>
+  <defs>
+    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M28 0H0v28" fill="none" stroke="#DCD6CA" stroke-width="1" opacity="0.42"/>
+    </pattern>
+    <filter id="soft" x="-18%" y="-18%" width="136%" height="136%">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#111513" flood-opacity="0.07"/>
+    </filter>
+  </defs>
+
+  <path d="M48 32h264a24 24 0 0 1 24 24v308a24 24 0 0 1-24 24H48a24 24 0 0 1-24-24V56a24 24 0 0 1 24-24Z" fill="#FFFDF8" opacity="0.68"/>
+  <path d="M48 32h264a24 24 0 0 1 24 24v308a24 24 0 0 1-24 24H48a24 24 0 0 1-24-24V56a24 24 0 0 1 24-24Z" fill="url(#grid)" opacity="0.62"/>
+  <path d="M57 73h73M57 94h34M246 73h59M270 94h35" stroke="#0F766E" stroke-width="1.6" opacity="0.45"/>
+  <circle cx="303" cy="72" r="35" fill="#38BDF8" opacity="0.07"/>
+  <circle cx="68" cy="337" r="44" fill="#F6D35B" opacity="0.1"/>
+
+  <g filter="url(#soft)">
+    <rect x="52" y="118" width="256" height="76" rx="15" fill="#121815"/>
+    <circle cx="76" cy="141" r="3.7" fill="#38BDF8" opacity="0.95"/>
+    <circle cx="92" cy="141" r="3.7" fill="#F6D35B" opacity="0.9"/>
+    <circle cx="108" cy="141" r="3.7" fill="#8FBF56" opacity="0.84"/>
+    <path d="M75 165h34" stroke="#FAF9F4" stroke-width="1.8" opacity="0.5"/>
+    <path d="M123 165h50M188 165h28" stroke="#38BDF8" stroke-width="1.8" opacity="0.68"/>
+    <text x="75" y="181" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9.5" fill="#FAF9F4" opacity="0.65">run pipeline --source s3 --target warehouse</text>
+  </g>
+
+  <g>
+    <path d="M83 256h194" stroke="#BFB6A8" stroke-width="1.6" opacity="0.7"/>
+    <path d="M139 256v-31h82v31M139 256v31h82v-31" fill="none" stroke="#BFB6A8" stroke-width="1.6" opacity="0.58"/>
+    <path d="M114 256h36M210 225h28M210 287h28" stroke="#0F766E" stroke-width="1.4" opacity="0.22"/>
+
+    <g filter="url(#soft)">
+      <rect x="57" y="230" width="52" height="52" rx="14" fill="#FFFDF8" stroke="#DDD8CD"/>
+      <rect x="154" y="199" width="52" height="52" rx="14" fill="#FFFDF8" stroke="#DDD8CD"/>
+      <rect x="154" y="261" width="52" height="52" rx="14" fill="#FFFDF8" stroke="#DDD8CD"/>
+      <rect x="251" y="230" width="52" height="52" rx="14" fill="#FFFDF8" stroke="#DDD8CD"/>
+    </g>
+
+    <circle cx="83" cy="256" r="8.6" fill="#0F766E" opacity="0.86"/>
+    <circle cx="180" cy="225" r="8.6" fill="#38BDF8" opacity="0.8"/>
+    <circle cx="180" cy="287" r="8.6" fill="#F6D35B" opacity="0.86"/>
+    <circle cx="277" cy="256" r="8.6" fill="#F59E0B" opacity="0.74"/>
+    <path d="M77 250h12M174 219h12M174 281h12M271 250h12" stroke="#FFFFFF" stroke-width="1.8" opacity="0.86"/>
+    <path d="M77 262h12M174 231h12M174 293h12M271 262h12" stroke="#FFFFFF" stroke-width="1.8" opacity="0.56"/>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9.5" fill="#4C5854" opacity="0.78">
+    <text x="59" y="318">ingest</text>
+    <text x="154" y="181">validate</text>
+    <text x="151" y="342">transform</text>
+    <text x="250" y="318">publish</text>
+  </g>
+
+  <path d="M79 367h202" stroke="#111513" stroke-width="1.4" opacity="0.1"/>
+  <text x="180" y="389" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" font-weight="650" fill="#111513" letter-spacing="3.2" opacity="0.46">DATA WORKFLOW</text>
+</svg>

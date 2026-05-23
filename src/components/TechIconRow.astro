@@ -1,0 +1,96 @@
+---
+const technologies = [
+  { href: 'https://www.python.org/', label: 'Python', icon: '/icons/python.svg', brand: '#3776ab' },
+  { href: 'https://go.dev/', label: 'Go', icon: '/icons/go.svg', brand: '#00add8' },
+  { href: 'https://argoproj.github.io/workflows/', label: 'Argo Workflows', icon: '/icons/argo.svg', brand: '#ef7b4d' },
+  { href: 'https://www.snowflake.com/', label: 'Snowflake', icon: '/icons/snowflake.svg', brand: '#29b5e8' },
+  { href: 'https://aws.amazon.com/', label: 'AWS', icon: '/icons/aws.svg', brand: '#ff9900' },
+];
+---
+
+<div class="tech-row" aria-label="Tecnologías principales">
+  {technologies.map((technology) => (
+    <a
+      class="tech-icon"
+      style={`--brand: ${technology.brand}`}
+      href={technology.href}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={technology.label}
+      data-label={technology.label}
+    >
+      <img src={technology.icon} alt="" width="22" height="22" loading="lazy" aria-hidden="true" />
+    </a>
+  ))}
+</div>
+
+<style>
+  .tech-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+  }
+
+  .tech-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgb(221 216 205 / 72%);
+    border-radius: 999px;
+    background: rgb(255 255 255 / 48%);
+    text-decoration: none;
+    transition: border-color var(--transition), color var(--transition), transform var(--transition), background var(--transition), box-shadow var(--transition);
+  }
+
+  .tech-icon:hover {
+    border-color: color-mix(in srgb, var(--brand), white 50%);
+    background: rgb(255 255 255 / 82%);
+    box-shadow: 0 8px 18px color-mix(in srgb, var(--brand), transparent 88%);
+    transform: translateY(-1px);
+  }
+
+  .tech-icon img {
+    width: 22px;
+    height: 22px;
+    filter: grayscale(1) saturate(0) opacity(0.72);
+    object-fit: contain;
+    transition: filter var(--transition), transform var(--transition);
+  }
+
+  .tech-icon:hover img,
+  .tech-icon:focus-visible img {
+    filter: none;
+    transform: scale(1.04);
+  }
+
+  .tech-icon::after {
+    position: absolute;
+    bottom: calc(100% + 9px);
+    left: 50%;
+    z-index: 1;
+    border: 1px solid rgb(221 216 205 / 92%);
+    border-radius: 999px;
+    padding: var(--space-3xs) var(--space-xs);
+    background: var(--color-surface);
+    color: var(--color-muted);
+    content: attr(data-label);
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 4px);
+    transition: opacity 150ms ease, transform 150ms ease;
+    white-space: nowrap;
+  }
+
+  .tech-icon:hover::after,
+  .tech-icon:focus-visible::after {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+</style>

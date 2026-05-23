@@ -1,0 +1,65 @@
+---
+interface Props {
+  date: Date;
+  updatedDate?: Date;
+  readingTime?: string;
+  topics?: string[];
+}
+
+const { date, updatedDate, readingTime, topics = [] } = Astro.props;
+const formatter = new Intl.DateTimeFormat('es', {
+  day: '2-digit',
+  month: 'short',
+  year: 'numeric',
+});
+---
+
+<div class="post-meta">
+  <time datetime={date.toISOString()}>{formatter.format(date)}</time>
+  {updatedDate && <span>Actualizado {formatter.format(updatedDate)}</span>}
+  {readingTime && <span>{readingTime}</span>}
+  {topics.length > 0 && (
+    <ul aria-label="Topics del artículo">
+      {topics.map((topic) => <li>{topic}</li>)}
+    </ul>
+  )}
+</div>
+
+<style>
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2xs) var(--space-xs);
+    margin-top: var(--space-sm);
+    color: var(--color-soft);
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    line-height: var(--leading-normal);
+  }
+
+  .post-meta > *:not(:last-child)::after {
+    margin-left: var(--space-xs);
+    color: rgb(200 192 179 / 78%);
+    content: "/";
+  }
+
+  ul {
+    display: contents;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    border: 1px solid rgb(15 118 110 / 16%);
+    border-radius: 999px;
+    padding: var(--space-3xs) var(--space-xs);
+    background: rgb(227 241 238 / 62%);
+    color: #285f5a;
+  }
+
+  li + li {
+    margin-left: calc(-1 * var(--space-3xs));
+  }
+</style>
